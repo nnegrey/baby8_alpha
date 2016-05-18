@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Baby8Alpha</string>
+    <string name="effects">Effects</string>
+    <string name="buttonLeft">Left</string>
+    <string name="buttonRight">Right</string>
+    <string name="buttonSound">Sound</string>
+    <string name="buttonLighter">Lighter</string>
+    <string name="robotVelocity">Speed:</string>
+    <string name="currentVelocity">0</string>
+    <string name="buttonSave">Save</string>
+    <string name="createPatternEffectMessage">Select an effect</string>
+    <string name="createPatternCommandDirection">Direction:</string>
+    <string name="createPatternCommandVelocity">Speed:</string>
+    <string name="createPatternCommandDuration">Duration:</string>
+    <string name="createPatternCommandDurationHint">1-1000</string>
+    <string name="createPatternCommandHead">Head:</string>
+    <string name="patternNameHint">Pattern Name</string>
+</resources>

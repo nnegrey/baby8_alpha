@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/colorPrimaryDark"
+    tools:context=".CreatePattern">
+
+    <LinearLayout android:id="@+id/createPatternSavePatternLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <Button android:id="@+id/createPatternSavePattern"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/buttonSave"/>
+        <EditText android:id="@+id/createPatternEditText"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="@string/patternNameHint"
+            />
+    </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView android:id="@+id/createPatternViewGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:choiceMode="singleChoice"
+        android:descendantFocusability="beforeDescendants"
+        android:layout_below="@+id/createPatternSavePatternLayout"/>
+
+    <com.getbase.floatingactionbutton.FloatingActionsMenu
+        android:id="@+id/createPatternFloatingActionMenu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom|right"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
+        fab:fab_addButtonColorNormal="@color/colorAccent"
+        fab:fab_addButtonColorPressed="@color/darkColorAccent"
+        fab:fab_addButtonPlusIconColor="@color/half_black"
+        fab:fab_labelStyle="@style/menu_labels_style"
+        fab:fab_labelsPosition="left">
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/createPatternFloatingActionButtonCommand"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            fab:fab_colorNormal="@color/colorAccent"
+            fab:fab_title="Command"
+            app:fab_icon="@mipmap/bb8_plain_head"
+            fab:fab_colorPressed="@color/darkColorAccent"/>
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/createPatternFloatingActionButtonEffect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            fab:fab_colorNormal="@color/colorAccent"
+            fab:fab_title="Effect"
+            app:fab_icon="@mipmap/bb8_effect"
+            fab:fab_colorPressed="@color/darkColorAccent"/>
+    </com.getbase.floatingactionbutton.FloatingActionsMenu>
+</RelativeLayout>
