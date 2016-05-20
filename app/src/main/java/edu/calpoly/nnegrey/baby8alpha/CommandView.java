@@ -68,8 +68,4 @@ public class CommandView extends RecyclerView.ViewHolder {
 			textViewHeadDegree.setText("");
 		}
 	}
-
-	public Command getCommand() {
-		return command;
-	}
 }

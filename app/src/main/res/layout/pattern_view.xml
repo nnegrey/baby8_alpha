@@ -7,7 +7,10 @@
     android:paddingLeft="16dp"
     android:paddingRight="16dp"
     android:descendantFocusability="blocksDescendants"
-    android:id="@+id/patternViewLinearLayout">
+    android:id="@+id/patternViewLinearLayout"
+    android:clickable="false"
+    android:focusable="false"
+    android:focusableInTouchMode="false">
 
     <TextView
         android:id="@+id/patternViewTextViewPatternName"

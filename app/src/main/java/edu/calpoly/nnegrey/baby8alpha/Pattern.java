@@ -4,6 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Created by noahnegrey on 5/15/16.
@@ -13,7 +14,6 @@ public class Pattern implements Parcelable {
     private ArrayList<Command> commands;
     private String patternName;
     private long id;
-    private long displayOrder;
 
     public Pattern() {
 
@@ -28,6 +28,7 @@ public class Pattern implements Parcelable {
     public Pattern(String pName, ArrayList<Command> c) {
         patternName = pName;
         commands = c;
+        id = -1;
     }
 
     public String getPatternName() {
@@ -52,14 +53,6 @@ public class Pattern implements Parcelable {
 
     public void setId(long id) {
         this.id = id;
-    }
-
-    public long getDisplayOrder() {
-        return displayOrder;
-    }
-
-    public void setDisplayOrder(long order) {
-        this.displayOrder = order;
     }
 
     @Override
@@ -112,12 +105,13 @@ public class Pattern implements Parcelable {
     public void writeToParcel(Parcel out, int flags) {
         out.writeString(patternName);
         out.writeList(commands);
+        out.writeLong(id);
     }
 
     public static final Creator<Pattern> CREATOR
             = new Creator<Pattern>() {
         public Pattern createFromParcel(Parcel in) {
-            return new Pattern(in.readString(), in.readArrayList((ClassLoader) Command.CREATOR));
+            return new Pattern(in.readString(), in.readArrayList((ClassLoader) Command.CREATOR), in.readLong());
         }
 
         public Pattern[] newArray(int size) {

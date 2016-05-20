@@ -7,6 +7,11 @@ import android.content.Intent;
 import android.os.ParcelUuid;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.view.ActionMode;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -19,17 +24,22 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Set;
 
-public class Remote extends AppCompatActivity {
+public final class Remote extends AppCompatActivity {
     private RelativeLayout layout_joystick;
     private Joystick js;
     private TextView velocity;
-    private Button b;
+    private Button buttonLeft;
+    private Button buttonRight;
+    private Button buttonSound;
+    private Button buttonEffect;
 
     private BluetoothAdapter bluetoothAdapter;
     private Set<BluetoothDevice> pairedDevices;
     public static BluetoothDevice bb_8;
     public static OutputStream outputStream = null;
     public static boolean isConnected = false;
+
+    protected Menu m_vwMenu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,13 +48,11 @@ public class Remote extends AppCompatActivity {
 
         velocity = (TextView) findViewById(R.id.textViewVelocity);
         layout_joystick = (RelativeLayout)findViewById(R.id.layout_joystick);
-        b = (Button) findViewById(R.id.buttonSound);
-        b.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startPatternListActivity();
-            }
-        });
+
+        buttonLeft = (Button) findViewById(R.id.buttonTurnLeft);
+        buttonRight = (Button) findViewById(R.id.buttonTurnRight);
+        buttonEffect = (Button) findViewById(R.id.buttonLighter);
+        buttonSound = (Button) findViewById(R.id.buttonSound);
 
         js = new Joystick(getApplicationContext(), layout_joystick, R.drawable.image_button);
         js.setStickSize(250, 250);
@@ -123,6 +131,25 @@ public class Remote extends AppCompatActivity {
         initLayout();
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.mainmenu, menu);
+        m_vwMenu = menu;
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_pattern:
+                startPatternListActivity();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
     private void initLayout() {
         bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         pairedDevices = bluetoothAdapter.getBondedDevices();
@@ -132,6 +159,50 @@ public class Remote extends AppCompatActivity {
                 bb_8 = bt;
             }
         }
+
+        buttonLeft.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    write("Head Left: 10");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        buttonRight.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    write("Head Right: 10");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        buttonEffect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    write("Effect: Lighter");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        buttonSound.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    write("Effect: Sound");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
 
         ParcelUuid[] uuids = bb_8.getUuids();
         BluetoothSocket socket = null;
@@ -154,14 +225,16 @@ public class Remote extends AppCompatActivity {
         startActivity(i);
     }
 
-    public void write(String s) throws IOException {
+    public static void write(String s) throws IOException {
         if (outputStream == null) {
-            Toast.makeText(this, "Disconnected", Toast.LENGTH_LONG).show();
+//            Toast.makeText(Remote.this, "Disconnected", Toast.LENGTH_LONG).show();
         }
         else {
             s.replace("<", "");
             s.replace(">", "");
             s = "<" + s + ">";
+            // TODO Configure multiple sends for smaller byte sizes.
+            // Break apart message by <>
             outputStream.write(s.getBytes());
         }
     }

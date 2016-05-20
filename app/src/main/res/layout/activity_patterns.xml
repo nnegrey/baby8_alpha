@@ -15,8 +15,8 @@
         android:orientation="vertical"
         android:focusable="true"
         android:focusableInTouchMode="true"
-        android:choiceMode="singleChoice"/>
-        <!--android:descendantFocusability="beforeDescendants" />-->
+        android:choiceMode="singleChoice"
+        android:descendantFocusability="beforeDescendants" />
 
     <com.getbase.floatingactionbutton.FloatingActionButton
         android:id="@+id/patternsFloatingActionButton"

@@ -45,15 +45,11 @@ public class PatternListAdapter extends RecyclerView.Adapter<PatternView> {
     public boolean onItemMove(int fromPosition, int toPosition) {
         if (fromPosition < toPosition) {
             for (int i = fromPosition; i < toPosition; i++) {
-                patterns.get(i).setDisplayOrder(i + 1);
-                patterns.get(i + 1).setDisplayOrder(i);
                 Collections.swap(patterns, i, i + 1);
             }
         }
         else {
             for (int i = fromPosition; i > toPosition; i--) {
-                patterns.get(i).setDisplayOrder(i - 1);
-                patterns.get(i - 1).setDisplayOrder(i);
                 Collections.swap(patterns, i, i - 1);
             }
         }

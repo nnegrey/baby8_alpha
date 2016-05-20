@@ -13,12 +13,15 @@ public class Command implements Parcelable {
 	private int head_degree;
 	private String effect;
 	private long id;
+	private long pattern_id;
 
 	public Command() {
 		direction = 0;
 		velocity = 0;
 		duration = 0;
 		head_degree = 0;
+		id = -1;
+		pattern_id = -1;
 	}
 
 	public Command(int dir, int vel, int dur, int hdeg) {
@@ -28,6 +31,20 @@ public class Command implements Parcelable {
 		duration = dur;
 		head_degree = hdeg;
 		effect = "";
+		id = -1;
+		pattern_id = -1;
+
+	}
+
+	public Command(int dir, int vel, int dur, int hdeg, long id, long pid) {
+		type = 0;
+		direction = dir;
+		velocity = vel;
+		duration = dur;
+		head_degree = hdeg;
+		effect = "";
+		this.id = id;
+		pattern_id = pid;
 	}
 
 	public Command(String e) {
@@ -37,6 +54,19 @@ public class Command implements Parcelable {
 		duration = 0;
 		head_degree = 0;
 		effect = e;
+		id = -1;
+		pattern_id = -1;
+	}
+
+	public Command(String e, long id, long pid) {
+		type = 1;
+		direction = 0;
+		velocity = 0;
+		duration = 0;
+		head_degree = 0;
+		effect = e;
+		this.id = id;
+		pattern_id = pid;
 	}
 
 	public int getDirection() {
@@ -95,6 +125,14 @@ public class Command implements Parcelable {
 		this.id = id;
 	}
 
+	public long getPatternId() {
+		return pattern_id;
+	}
+
+	public void setPatternId(long pattern_id) {
+		this.pattern_id = pattern_id;
+	}
+
 	@Override
 	public String toString() {
 		if (type == 0) {
@@ -149,16 +187,18 @@ public class Command implements Parcelable {
 		else {
 			out.writeString(effect);
 		}
+		out.writeLong(id);
+		out.writeLong(pattern_id);
 	}
 
 	public static final Creator<Command> CREATOR
 			= new Creator<Command>() {
 		public Command createFromParcel(Parcel in) {
 			if (in.readInt() == 0) {
-				return new Command(in.readInt(), in.readInt(), in.readInt(), in.readInt());
+				return new Command(in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readLong(), in.readLong());
 			}
 			else {
-				return new Command(in.readString());
+				return new Command(in.readString(), in.readLong(), in.readLong());
 			}
 		}
 

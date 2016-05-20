@@ -4,6 +4,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -31,6 +34,8 @@ public class CreatePatternCommand extends AppCompatActivity {
     protected SeekArc seekArcHead;
     protected Button buttonSave;
 
+    protected Menu m_vwMenu;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +58,26 @@ public class CreatePatternCommand extends AppCompatActivity {
         buttonSave = (Button) findViewById(R.id.createPatternCommandSaveButton);
 
         initLayout();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu, menu);
+        m_vwMenu = menu;
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_pattern:
+//                finish();
+                startRemoteActivity();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     protected void initLayout() {
@@ -132,5 +157,10 @@ public class CreatePatternCommand extends AppCompatActivity {
 
     private int getHeadDegree() {
         return seekArcHead.getProgress();
+    }
+
+    protected void startRemoteActivity() {
+        Intent i = new Intent(this, Remote.class);
+        startActivity(i);
     }
 }

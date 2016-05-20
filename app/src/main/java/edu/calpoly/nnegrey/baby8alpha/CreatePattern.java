@@ -9,6 +9,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -38,6 +41,7 @@ public class CreatePattern extends AppCompatActivity {
     protected CommandListAdapter commandAdapter;
 
     protected int position;
+    protected Menu m_vwMenu;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -46,12 +50,9 @@ public class CreatePattern extends AppCompatActivity {
 
         buttonSave = (Button) findViewById(R.id.createPatternSavePattern);
         editTextPatternName = (EditText) findViewById(R.id.createPatternEditText);
-
         commands = new ArrayList<>();
-
         commandAdapter = new CommandListAdapter(commands);
         commandLayout = (RecyclerView) findViewById(R.id.createPatternViewGroup);
-
         fab_command = (FloatingActionButton) findViewById(R.id.createPatternFloatingActionButtonCommand);
         fab_command.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,12 +67,7 @@ public class CreatePattern extends AppCompatActivity {
                 startCreatePatternEffect();
             }
         });
-
         commandLayout.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        if (savedInstanceState != null) {
-            commands = savedInstanceState.getParcelableArrayList("COMMANDS");
-        }
-
         commandLayout.setAdapter(commandAdapter);
 
         ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT |
@@ -113,6 +109,26 @@ public class CreatePattern extends AppCompatActivity {
         initLayout();
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu, menu);
+        m_vwMenu = menu;
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_pattern:
+//                finish();
+                startRemoteActivity();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
     protected void initLayout() {
         buttonSave.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -124,14 +140,11 @@ public class CreatePattern extends AppCompatActivity {
                 patternName = editTextPatternName.getText().toString();
                 if (!patternName.isEmpty()) {
                     editTextPatternName.setText("");
-
                     Intent intent = new Intent();
                     intent.putExtra("INDEX", getIntent().getIntExtra("INDEX", -1));
                     intent.putExtra("PATTERN_NAME", patternName);
                     intent.putParcelableArrayListExtra("COMMANDS", commands);
-
                     setResult(Activity.RESULT_OK, intent);
-
                     finish();//finishing activity
                 }
             }
@@ -149,6 +162,12 @@ public class CreatePattern extends AppCompatActivity {
                     patternName = editTextPatternName.getText().toString();
                     if (!patternName.isEmpty()) {
                         editTextPatternName.setText("");
+                        Intent intent = new Intent();
+                        intent.putExtra("INDEX", getIntent().getIntExtra("INDEX", -1));
+                        intent.putExtra("PATTERN_NAME", patternName);
+                        intent.putParcelableArrayListExtra("COMMANDS", commands);
+                        setResult(Activity.RESULT_OK, intent);
+                        finish();//finishing activity
                     }
                     return true;
                 }
@@ -162,21 +181,13 @@ public class CreatePattern extends AppCompatActivity {
             ArrayList<Command> cs = i.getParcelableArrayListExtra("COMMANDS");
             for (Command c : cs) {
                 if (c.getEffect() != null && c.getEffect().isEmpty()) {
-                    addCommand(c.getDirection(), c.getVelocity(), c.getDuration(), c.getHeadDegree());
+                    addCommandFromDatabase(c.getDirection(), c.getVelocity(), c.getDuration(), c.getHeadDegree(), c.getId(), c.getPatternId());
                 }
                 else {
-                    addCommand(c.getEffect());
+                    addCommandFromDataBase(c.getEffect(), c.getId(), c.getPatternId());
                 }
             }
-
-//            commandAdapter.notifyDataSetChanged();
         }
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        outState.putParcelableArrayList("COMMANDS", commands);
-        super.onSaveInstanceState(outState);
     }
 
     @Override
@@ -242,6 +253,15 @@ public class CreatePattern extends AppCompatActivity {
         }
     }
 
+    protected void addCommandFromDatabase(int direction, int velocity, int duration, int head_degree, long id, long patternId) {
+        Command command = new Command(direction, velocity, duration, head_degree, id, patternId);
+
+        if (!commands.contains(command)) {
+            this.commands.add(command);
+            commandAdapter.notifyDataSetChanged();
+        }
+    }
+
     protected void addCommand(String effect) {
         Command command = new Command(effect);
 
@@ -251,7 +271,23 @@ public class CreatePattern extends AppCompatActivity {
         }
     }
 
+    protected void addCommandFromDataBase(String effect, long id, long patternId) {
+        Command command = new Command(effect, id, patternId);
+
+        if (!commands.contains(command)) {
+            this.commands.add(command);
+            commandAdapter.notifyDataSetChanged();
+        }
+    }
+
     protected void deleteCommand() {
+        if (commands.get(position).getId() != -1) {
+            CommandDataSource commandDataSource = new CommandDataSource(this);
+            commandDataSource.open();
+            commandDataSource.deleteCommand(commands.get(position));
+            commandDataSource.close();
+        }
+
         commands.remove(position);
 
         commandAdapter.notifyDataSetChanged();
@@ -273,5 +309,10 @@ public class CreatePattern extends AppCompatActivity {
             i.putExtra("INDEX", position);
             startActivityForResult(i, REQUEST_CODE_EFFECT);
         }
+    }
+
+    protected void startRemoteActivity() {
+        Intent i = new Intent(this, Remote.class);
+        startActivity(i);
     }
 }

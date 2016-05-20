@@ -15,4 +15,6 @@
     <string name="createPatternCommandDurationHint">1-1000</string>
     <string name="createPatternCommandHead">Head:</string>
     <string name="patternNameHint">Pattern Name</string>
+    <string name="menuitem_remote">Remote</string>
+    <string name="menuitem_pattern">Pattern</string>
 </resources>

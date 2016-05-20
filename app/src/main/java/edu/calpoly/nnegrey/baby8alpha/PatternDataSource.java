@@ -7,6 +7,7 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -17,7 +18,7 @@ public class PatternDataSource {
     private PatternDatabaseHelper dbHelper;
     private String[] allColumns = { PatternTable.PATTERN_KEY_ID,
             PatternTable.PATTERN_KEY_NAME,
-            PatternTable.PATTERN_KEY_ORDER };
+            PatternTable.PATTERN_KEY_DATE };
 
     public PatternDataSource(Context context) {
         dbHelper = new PatternDatabaseHelper(context);
@@ -31,10 +32,10 @@ public class PatternDataSource {
         dbHelper.close();
     }
 
-    public Pattern createPattern(String name, long order) {
+    public Pattern createPattern(String name, long date) {
         ContentValues values = new ContentValues();
         values.put(PatternTable.PATTERN_KEY_NAME, name);
-        values.put(PatternTable.PATTERN_KEY_ORDER, order);
+        values.put(PatternTable.PATTERN_KEY_DATE, new Date().getTime());
         long insertId = database.insert(PatternTable.DATABASE_TABLE_PATTERN, null,
                 values);
         Cursor cursor = database.query(PatternTable.DATABASE_TABLE_PATTERN,
@@ -52,11 +53,18 @@ public class PatternDataSource {
                 + " = " + id, null);
     }
 
-    public void updateOrder(Pattern pattern) {
+    public void updatePatternOrder(Pattern pattern) {
         ContentValues values = new ContentValues();
         values.put(PatternTable.PATTERN_KEY_ID, pattern.getId());
         values.put(PatternTable.PATTERN_KEY_NAME, pattern.getPatternName());
-        values.put(PatternTable.PATTERN_KEY_ORDER, pattern.getDisplayOrder());
+        values.put(PatternTable.PATTERN_KEY_DATE, new Date().getTime());
+        database.update(PatternTable.DATABASE_TABLE_PATTERN, values, PatternTable.PATTERN_KEY_ID + " = " + pattern.getId(), null);
+    }
+
+    public void updatePatternValues(Pattern pattern) {
+        ContentValues values = new ContentValues();
+        values.put(PatternTable.PATTERN_KEY_ID, pattern.getId());
+        values.put(PatternTable.PATTERN_KEY_NAME, pattern.getPatternName());
         database.update(PatternTable.DATABASE_TABLE_PATTERN, values, PatternTable.PATTERN_KEY_ID + " = " + pattern.getId(), null);
     }
 
@@ -64,7 +72,7 @@ public class PatternDataSource {
         List<Pattern> patterns = new ArrayList<Pattern>();
 
         Cursor cursor = database.query(PatternTable.DATABASE_TABLE_PATTERN,
-                allColumns, null, null, null, null, null);
+                allColumns, null, null, null, null, PatternTable.PATTERN_KEY_DATE + " DESC");
 
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
@@ -80,9 +88,7 @@ public class PatternDataSource {
     private Pattern cursorToPattern(Cursor cursor) {
         Pattern pattern = new Pattern();
         pattern.setId(cursor.getLong(PatternTable.PATTERN_COL_ID));
-
         pattern.setPatternName(cursor.getString(PatternTable.PATTERN_COL_NAME));
-        pattern.setDisplayOrder(cursor.getLong(PatternTable.PATTERN_COL_ORDER));
         return pattern;
     }
 }

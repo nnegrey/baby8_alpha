@@ -18,15 +18,15 @@ public class PatternTable {
     public static final String PATTERN_KEY_NAME = "pattern_name";
     public static final int PATTERN_COL_NAME = PATTERN_COL_ID + 1;
 
-    public static final String PATTERN_KEY_ORDER = "pattern_order";
-    public static final int PATTERN_COL_ORDER = PATTERN_COL_ID + 2;
+    public static final String PATTERN_KEY_DATE = "pattern_order";
+    public static final int PATTERN_COL_DATE = PATTERN_COL_ID + 2;
 
     /** SQLite database creation statement. Auto-increments IDs of inserted pattern.
      * Pattern IDs are set after insertion into the database. */
     public static final String DATABASE_CREATE = "create table " + DATABASE_TABLE_PATTERN + " (" +
             PATTERN_KEY_ID + " integer primary key autoincrement, " +
             PATTERN_KEY_NAME	+ " text not null, " +
-            PATTERN_KEY_ORDER   + " integer not null);";
+            PATTERN_KEY_DATE   + " integer not null);";
 
     /** SQLite database table removal statement. Only used if upgrading database. */
     public static final String DATABASE_DROP = "drop table if exists " + DATABASE_TABLE_PATTERN;

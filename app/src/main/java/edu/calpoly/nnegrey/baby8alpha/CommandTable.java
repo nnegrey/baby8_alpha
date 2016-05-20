@@ -33,6 +33,9 @@ public class CommandTable {
     public static final String COMMAND_KEY_EFFECT = "command_effect";
     public static final int COMMAND_COL_EFFECT = COMMAND_COL_ID + 7;
 
+    public static final String COMMAND_KEY_DATE = "command_order";
+    public static final int COMMAND_COL_DATE = COMMAND_COL_ID + 8;
+
     /** SQLite database creation statement. Auto-increments IDs of inserted commands.
      * Command IDs are set after insertion into the database. */
     public static final String DATABASE_CREATE = "create table " + DATABASE_TABLE_COMMAND + " (" +
@@ -43,7 +46,8 @@ public class CommandTable {
             COMMAND_KEY_VELOCITY	+ " integer not null, " +
             COMMAND_KEY_DURATION	+ " integer not null, " +
             COMMAND_KEY_HEAD_DEGREE + " integer not null, " +
-            COMMAND_KEY_EFFECT + " text not null);";
+            COMMAND_KEY_EFFECT      + " text not null, " +
+            COMMAND_KEY_DATE       + " integer not null);";
 
     /** SQLite database table removal statement. Only used if upgrading database. */
     public static final String DATABASE_DROP = "drop table if exists " + DATABASE_TABLE_COMMAND;
