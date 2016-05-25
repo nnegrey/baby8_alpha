@@ -17,4 +17,5 @@
     <string name="patternNameHint">Pattern Name</string>
     <string name="menuitem_remote">Remote</string>
     <string name="menuitem_pattern">Pattern</string>
+    <string name="robotHeadDegree">Head Degree:</string>
 </resources>

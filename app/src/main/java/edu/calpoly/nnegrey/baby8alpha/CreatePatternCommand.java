@@ -50,14 +50,23 @@ public class CreatePatternCommand extends AppCompatActivity {
         radioButtonSpeed3 = (RadioButton) findViewById(R.id.createPatternCommandRadioButtonSpeed3);
         radioButtonSpeed4 = (RadioButton) findViewById(R.id.createPatternCommandRadioButtonSpeed4);
         radioButtonSpeed5 = (RadioButton) findViewById(R.id.createPatternCommandRadioButtonSpeed5);
-
         editTextDuration = (EditText) findViewById(R.id.createPatternCommandEditTextDuration);
-
         seekArcHead = (SeekArc) findViewById(R.id.createPatternCommandSeekArcHead);
-
         buttonSave = (Button) findViewById(R.id.createPatternCommandSaveButton);
 
+        if (savedInstanceState != null) {
+            seekArcDirection.setProgress(savedInstanceState.getInt("SEEK_ARC_DIRECTION"));
+            seekArcHead.setProgress(savedInstanceState.getInt("SEEK_ARC_HEAD"));
+        }
+
         initLayout();
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putInt("SEEK_ARC_DIRECTION", seekArcDirection.getProgress());
+        outState.putInt("SEEK_ARC_HEAD", seekArcHead.getProgress());
+        super.onSaveInstanceState(outState);
     }
 
     @Override

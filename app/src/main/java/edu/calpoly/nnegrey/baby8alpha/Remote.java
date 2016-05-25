@@ -4,6 +4,7 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.ParcelUuid;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -26,8 +27,11 @@ import java.util.Set;
 
 public final class Remote extends AppCompatActivity {
     private RelativeLayout layout_joystick;
+    private RelativeLayout layout_joystick2;
     private Joystick js;
+    private Joystick js2;
     private TextView velocity;
+    private TextView headDegree;
     private Button buttonLeft;
     private Button buttonRight;
     private Button buttonSound;
@@ -48,6 +52,7 @@ public final class Remote extends AppCompatActivity {
 
         velocity = (TextView) findViewById(R.id.textViewVelocity);
         layout_joystick = (RelativeLayout)findViewById(R.id.layout_joystick);
+        layout_joystick2 = (RelativeLayout)findViewById(R.id.layout_joystick2);
 
         buttonLeft = (Button) findViewById(R.id.buttonTurnLeft);
         buttonRight = (Button) findViewById(R.id.buttonTurnRight);
@@ -61,6 +66,26 @@ public final class Remote extends AppCompatActivity {
 //        js.setStickAlpha(100);
         js.setOffset(90);
         js.setMinimumDistance(50);
+
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            headDegree = (TextView) findViewById(R.id.textViewHeadDegree);
+            js.setStickSize(150, 150);
+            js.setLayoutSize(500, 500);
+            js.setLayoutAlpha(150);
+//        js.setStickAlpha(100);
+            js.setOffset(90);
+            js.setMinimumDistance(50);
+
+            js2 = new Joystick(getApplicationContext(), layout_joystick2, R.drawable.image_button);
+            js2.setStickSize(125, 125);
+            js2.setLayoutSize(800, 50);
+            js2.setLayoutAlpha(150);
+//        js.setStickAlpha(100);
+            js2.setOffset(90);
+            js2.setMinimumDistance(50);
+
+            initJoyStickHead();
+        }
 
 
         layout_joystick.setOnTouchListener(new View.OnTouchListener() {
@@ -128,7 +153,9 @@ public final class Remote extends AppCompatActivity {
             }
         });
 
-        initLayout();
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+            initLayoutPortrait();
+        }
     }
 
     @Override
@@ -150,7 +177,7 @@ public final class Remote extends AppCompatActivity {
         }
     }
 
-    private void initLayout() {
+    private void initLayoutPortrait() {
         bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         pairedDevices = bluetoothAdapter.getBondedDevices();
         for(BluetoothDevice bt : pairedDevices) {
@@ -237,5 +264,46 @@ public final class Remote extends AppCompatActivity {
             // Break apart message by <>
             outputStream.write(s.getBytes());
         }
+    }
+
+    private void initJoyStickHead() {
+        buttonEffect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    write("Effect: Lighter");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        buttonSound.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    write("Effect: Sound");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        layout_joystick2.setOnTouchListener(new View.OnTouchListener() {
+            public boolean onTouch(View arg0, MotionEvent arg1) {
+                js2.drawStick(arg1);
+                if(arg1.getAction() == MotionEvent.ACTION_DOWN
+                        || arg1.getAction() == MotionEvent.ACTION_MOVE) {
+                    int direction = js2.getX();
+                    headDegree.setText(String.valueOf(direction));
+                    try {
+                        write(String.valueOf(direction));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+                return true;
+            }
+        });
     }
 }
