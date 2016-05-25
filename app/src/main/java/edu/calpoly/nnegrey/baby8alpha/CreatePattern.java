@@ -107,6 +107,17 @@ public class CreatePattern extends AppCompatActivity {
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
         itemTouchHelper.attachToRecyclerView(commandLayout);
         initLayout();
+
+        if (savedInstanceState != null) {
+            commands = savedInstanceState.getParcelableArrayList("COMMANDS");
+            commandAdapter.notifyDataSetChanged();
+        }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putParcelableArrayList("COMMANDS", commands);
+        super.onSaveInstanceState(outState);
     }
 
     @Override
