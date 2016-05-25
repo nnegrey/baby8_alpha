@@ -16,10 +16,7 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="45c846ce-4ec6-4fbc-ad51-91672e330a01" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/edu/calpoly/nnegrey/baby8alpha/CreatePattern.java" afterPath="$PROJECT_DIR$/app/src/main/java/edu/calpoly/nnegrey/baby8alpha/CreatePattern.java" />
-    </list>
+    <list default="true" id="45c846ce-4ec6-4fbc-ad51-91672e330a01" name="Default" comment="" />
     <ignored path="Baby8Alpha.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
