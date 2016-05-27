@@ -78,8 +78,8 @@
         android:orientation="horizontal">
         <RelativeLayout
             android:id="@+id/layout_joystick"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="339dp"
+            android:layout_height="match_parent"
             android:gravity="center"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="29dp"
@@ -90,7 +90,7 @@
         <RelativeLayout
             android:id="@+id/layout_joystick2"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:gravity="center"
             android:layout_centerHorizontal="true"
             android:background="@drawable/image_button_bg"

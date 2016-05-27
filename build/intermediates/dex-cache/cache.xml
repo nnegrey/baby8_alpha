@@ -1,2 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
-<items version="2" />
+<items version="2" >
+
+    <item
+        jar="/Users/noahnegrey/AndroidStudioProjects/Baby8Alpha/app/build/intermediates/exploded-aar/com.github.aakira/expandable-layout/1.5.1/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="4cf6ff414996005f936308df484b1e27f7d1592e">
+        <dex dex="/Users/noahnegrey/AndroidStudioProjects/Baby8Alpha/app/build/intermediates/pre-dexed/release/com.github.aakira-expandable-layout-1.5.1_767ea608f36c8aaabbff05fa58d9564abc628d2d.jar" />
+    </item>
+    <item
+        jar="/Users/noahnegrey/AndroidStudioProjects/Baby8Alpha/app/build/intermediates/exploded-aar/com.h6ah4i.android.widget.advrecyclerview/advrecyclerview/0.9.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="e073232461d2e265e080aeac0536e55cf090dc6a">
+        <dex dex="/Users/noahnegrey/AndroidStudioProjects/Baby8Alpha/app/build/intermediates/pre-dexed/release/com.h6ah4i.android.widget.advrecyclerview-advrecyclerview-0.9.0_1c9b3800ce194f7c7a2fc619fd3c9d644356d01d.jar" />
+    </item>
+    <item
+        jar="/Users/noahnegrey/AndroidStudioProjects/Baby8Alpha/app/build/intermediates/exploded-aar/com.android.support/animated-vector-drawable/23.3.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="23be6993826b8fd88bbc8d14928bb3b8960d3d4e">
+        <dex dex="/Users/noahnegrey/AndroidStudioProjects/Baby8Alpha/app/build/intermediates/pre-dexed/release/com.android.support-animated-vector-drawable-23.3.0_991dc29c906797556795b6b1fc3938d99131d49d.jar" />
+    </item>
+    <item
+        jar="/Users/noahnegrey/AndroidStudioProjects/Baby8Alpha/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.3.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="1b8e03daaa43fb0a4cd57e378167c2fd70454c1e">
+        <dex dex="/Users/noahnegrey/AndroidStudioProjects/Baby8Alpha/app/build/intermediates/pre-dexed/release/com.android.support-appcompat-v7-23.3.0_00e9eff4a365dfcb0304a54fbc32f8f9eb9bbaf7.jar" />
+    </item>
+    <item
+        jar="/Users/noahnegrey/AndroidStudioProjects/Baby8Alpha/app/build/intermediates/exploded-aar/com.github.Triggertrap/SeekArc/v1.1/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="667c7c266ee94f433de491ca8fd5a2090d152ca5">
+        <dex dex="/Users/noahnegrey/AndroidStudioProjects/Baby8Alpha/app/build/intermediates/pre-dexed/release/com.github.Triggertrap-SeekArc-v1.1_53dd38f8c2828607ed18890bb09c0833f62e2f62.jar" />
+    </item>
+    <item
+        jar="/Users/noahnegrey/AndroidStudioProjects/Baby8Alpha/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.3.0/jars/libs/internal_impl-23.3.0.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="4da5a4d697d32497c6f85567a5112e62fdfd0676">
+        <dex dex="/Users/noahnegrey/AndroidStudioProjects/Baby8Alpha/app/build/intermediates/pre-dexed/release/internal_impl-23.3.0_1305d4c0aaf930030be72fa57ebe2466fd2b9b41.jar" />
+    </item>
+    <item
+        jar="/Users/noahnegrey/AndroidStudioProjects/Baby8Alpha/app/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/23.3.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="debf30ce0a7560396b6235edef77e447006454c2">
+        <dex dex="/Users/noahnegrey/AndroidStudioProjects/Baby8Alpha/app/build/intermediates/pre-dexed/release/com.android.support-recyclerview-v7-23.3.0_bfbf57c9f84f30a20dc88ef60ba4ef72338f4f3a.jar" />
+    </item>
+    <item
+        jar="/Users/noahnegrey/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/23.3.0/support-annotations-23.3.0.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="db7791d75a07fef9844d06236c1c59ba7bf6997c">
+        <dex dex="/Users/noahnegrey/AndroidStudioProjects/Baby8Alpha/app/build/intermediates/pre-dexed/release/support-annotations-23.3.0_400b84c3a0027faecbc024ea4db0b9d6b6b620f3.jar" />
+    </item>
+    <item
+        jar="/Users/noahnegrey/AndroidStudioProjects/Baby8Alpha/app/build/intermediates/exploded-aar/com.android.support/support-vector-drawable/23.3.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="a0b5d60246cd9d4f3f2443611b3b4c25265840b5">
+        <dex dex="/Users/noahnegrey/AndroidStudioProjects/Baby8Alpha/app/build/intermediates/pre-dexed/release/com.android.support-support-vector-drawable-23.3.0_351f20c154aa84fbf0148b7cba817f40b95d17c3.jar" />
+    </item>
+    <item
+        jar="/Users/noahnegrey/AndroidStudioProjects/Baby8Alpha/app/build/intermediates/exploded-aar/com.getbase/floatingactionbutton/1.10.1/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="f40cf334cdc8b098b74312e21c7741c6eefbeb0e">
+        <dex dex="/Users/noahnegrey/AndroidStudioProjects/Baby8Alpha/app/build/intermediates/pre-dexed/release/com.getbase-floatingactionbutton-1.10.1_8c92266b10f3f9143f874b0b2b4219de4ba64bc4.jar" />
+    </item>
+    <item
+        jar="/Users/noahnegrey/AndroidStudioProjects/Baby8Alpha/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.3.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="8a034dd16c0dfd75fe86c52c2cd581592acc684a">
+        <dex dex="/Users/noahnegrey/AndroidStudioProjects/Baby8Alpha/app/build/intermediates/pre-dexed/release/com.android.support-support-v4-23.3.0_e58b4b7c8718e535d98a84a7e275e8ad1578aa84.jar" />
+    </item>
+
+</items>

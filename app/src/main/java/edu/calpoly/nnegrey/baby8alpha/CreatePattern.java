@@ -43,6 +43,8 @@ public class CreatePattern extends AppCompatActivity {
     protected int position;
     protected Menu m_vwMenu;
 
+    private boolean loadIntent = false;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,7 +52,15 @@ public class CreatePattern extends AppCompatActivity {
 
         buttonSave = (Button) findViewById(R.id.createPatternSavePattern);
         editTextPatternName = (EditText) findViewById(R.id.createPatternEditText);
-        commands = new ArrayList<>();
+
+        if (savedInstanceState == null) {
+            commands = new ArrayList<>();
+            loadIntent = true;
+        }
+        else {
+            commands = savedInstanceState.getParcelableArrayList("COMMANDS");
+        }
+
         commandAdapter = new CommandListAdapter(commands);
         commandLayout = (RecyclerView) findViewById(R.id.createPatternViewGroup);
         fab_command = (FloatingActionButton) findViewById(R.id.createPatternFloatingActionButtonCommand);
@@ -107,6 +117,12 @@ public class CreatePattern extends AppCompatActivity {
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
         itemTouchHelper.attachToRecyclerView(commandLayout);
         initLayout();
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putParcelableArrayList("COMMANDS", commands);
+        super.onSaveInstanceState(outState);
     }
 
     @Override
@@ -176,7 +192,8 @@ public class CreatePattern extends AppCompatActivity {
         });
 
         Intent i = getIntent();
-        if (i.getIntExtra("INDEX", -1) != -1) {
+        if (i.getIntExtra("INDEX", -1) != -1 && loadIntent) {
+            Toast.makeText(this, "ADDING AGAIN", Toast.LENGTH_SHORT).show();
             editTextPatternName.setText(i.getStringExtra("PATTERN_NAME"));
             ArrayList<Command> cs = i.getParcelableArrayListExtra("COMMANDS");
             for (Command c : cs) {
