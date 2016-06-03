@@ -62,7 +62,6 @@ public class PatternView extends RecyclerView.ViewHolder implements View.OnClick
 
     @Override
     public void onClick(View v) {
-        Toast.makeText(v.getContext(), pattern.toString(), Toast.LENGTH_SHORT).show();
         try {
             Remote.write(pattern.toString());
         } catch (IOException e) {

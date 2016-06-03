@@ -16,10 +16,10 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -30,6 +30,7 @@ public class CreatePattern extends AppCompatActivity {
     private int REQUEST_CODE_EFFECT = 2;
 
     protected Button buttonSave;
+    protected Button buttonTest;
     protected EditText editTextPatternName;
     protected RecyclerView commandLayout;
     protected FloatingActionButton fab_command;
@@ -51,6 +52,7 @@ public class CreatePattern extends AppCompatActivity {
         setContentView(R.layout.activity_create_pattern);
 
         buttonSave = (Button) findViewById(R.id.createPatternSavePattern);
+        buttonTest = (Button) findViewById(R.id.createPatternTestPattern);
         editTextPatternName = (EditText) findViewById(R.id.createPatternEditText);
 
         if (savedInstanceState == null) {
@@ -166,6 +168,17 @@ public class CreatePattern extends AppCompatActivity {
             }
         });
 
+        buttonTest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    Remote.write(commands.toString());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
         editTextPatternName.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
@@ -193,7 +206,6 @@ public class CreatePattern extends AppCompatActivity {
 
         Intent i = getIntent();
         if (i.getIntExtra("INDEX", -1) != -1 && loadIntent) {
-            Toast.makeText(this, "ADDING AGAIN", Toast.LENGTH_SHORT).show();
             editTextPatternName.setText(i.getStringExtra("PATTERN_NAME"));
             ArrayList<Command> cs = i.getParcelableArrayListExtra("COMMANDS");
             for (Command c : cs) {

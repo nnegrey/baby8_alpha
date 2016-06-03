@@ -17,6 +17,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/buttonSave"/>
+        <Button
+            android:id="@+id/createPatternTestPattern"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/buttonTest"/>
         <EditText android:id="@+id/createPatternEditText"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

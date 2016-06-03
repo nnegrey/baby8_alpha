@@ -11,7 +11,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import java.util.ArrayList;
@@ -98,9 +97,6 @@ public class PatternList extends AppCompatActivity {
             List<Command> cs = commandDataSource.getAllCommands(pattern.getId());
             counter++;
             addPatternFromDatabase(new Pattern(pattern.getPatternName(), (ArrayList) cs, pattern.getId()));
-        }
-        if (counter != ps.size()) {
-            Toast.makeText(this, "INCORRECT NUMBER OF PATTERNS Got: " + counter + " DB: " + ps.size(), Toast.LENGTH_SHORT).show();
         }
     }
 
